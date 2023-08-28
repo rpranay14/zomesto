@@ -10,7 +10,6 @@ import NavbarComponent from "./NavbarComponent";
 const MainComponent = () => {
   return (
     <div>
-      <NavbarComponent />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/admin" element={<AdminPage />}>
