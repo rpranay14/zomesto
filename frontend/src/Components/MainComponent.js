@@ -4,7 +4,7 @@ import AddRestaurantPage from "../Page/Admin/AddRestaurantPage";
 
 import AdminPage from "../Page/Admin/AdminPage";
 import AddCategory from "../Page/Admin/AddCategory";
-import HomePage from "../Page/HomePage";
+import HomePage from "../Page/HomePage/HomePage";
 import NavbarComponent from "./NavbarComponent";
 
 const MainComponent = () => {

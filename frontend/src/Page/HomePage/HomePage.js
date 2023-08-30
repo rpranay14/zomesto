@@ -1,6 +1,21 @@
 import React from "react";
-import imageURL from "../assets/zomato_header";
+import imageURL from "../../assets/zomato_header";
 import { AiOutlineSearch } from "react-icons/ai";
+import OrderOnlineImage from "../../assets/order-online.jpg";
+import DineInImage from "../../assets/dine-in.jpg";
+
+const orderTypeCard = [
+  {
+    title: "Order Online",
+    image: OrderOnlineImage,
+    description: "Stay home and order to your doorstep",
+  },
+  {
+    title: "Dine In",
+    image: DineInImage,
+    description: "View the cities favourite dining venues",
+  },
+];
 const HomePage = () => {
   return (
     <>
@@ -32,6 +47,22 @@ const HomePage = () => {
             </div>
           </div>
         </header>
+        <main className="mt-12  flex justify-center items-center gap-12 pb-20 mx-8 ">
+          {orderTypeCard.map((card) => (
+            <div className=" w-[12rem] md:w-[20rem] lg:w-[30rem] rounded-lg overflow-hidden shadow-lg  pb-3  md:pb-6 cursor-pointer transition-transform duration-200 hover:scale-110">
+              <img
+                src={card.image}
+                className="w-[100%] lg:w-[30rem] lg:h-48 "
+              />
+              <p className="text-sm ml-2 md:text-lg font-bold mt-2">
+                {card.title}
+              </p>
+              <p className="ml-2 mt-1 truncate text-xs md:text-sm lg:text-base lg:truncate-none mr-1 ">
+                {card.description}
+              </p>
+            </div>
+          ))}
+        </main>
       </div>
     </>
   );
