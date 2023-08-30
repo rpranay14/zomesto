@@ -6,6 +6,7 @@ import AdminPage from "../Page/Admin/AdminPage";
 import AddCategory from "../Page/Admin/AddCategory";
 import HomePage from "../Page/HomePage/HomePage";
 import NavbarComponent from "./NavbarComponent";
+import FooterComponent from "./FooterComponent";
 
 const MainComponent = () => {
   return (
@@ -17,6 +18,7 @@ const MainComponent = () => {
           <Route path="addcategory" element={<AddCategory />} />
         </Route>
       </Routes>
+      <FooterComponent />
     </div>
   );
 };

@@ -49,7 +49,7 @@ const HomePage = () => {
         </header>
         <main className="mt-12  flex justify-center items-center gap-12 pb-20 mx-8 ">
           {orderTypeCard.map((card) => (
-            <div className=" w-[12rem] md:w-[20rem] lg:w-[30rem] rounded-lg overflow-hidden shadow-lg  pb-3  md:pb-6 cursor-pointer transition-transform duration-200 hover:scale-110">
+            <div className=" w-[13rem] md:w-[20rem] lg:w-[30rem] rounded-lg overflow-hidden shadow-lg  pb-3  md:pb-6 cursor-pointer transition-transform duration-200 hover:scale-110">
               <img
                 src={card.image}
                 className="w-[100%] lg:w-[30rem] lg:h-48 "
