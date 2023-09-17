@@ -1,19 +1,35 @@
 import React from "react";
 import imageURL from "../../assets/zomato_header";
 import { AiOutlineSearch } from "react-icons/ai";
-import OrderOnlineImage from "../../assets/order-online.jpg";
-import DineInImage from "../../assets/dine-in.jpg";
+import OrderOnlineImageS from "../../assets/order-online640x423.jpg";
+import OrderOnlineImageM from "../../assets/order-online1280x847.jpg";
+import OrderOnlineImageL from "../../assets/order-online1920x1271.jpg";
+
+import DineInImageS from "../../assets/dine-in640x423.jpg";
+import DineInImageM from "../../assets/dine-in1280x847.jpg";
+import DineInImageL from "../../assets/dine-in1920x1271.jpg";
+import { Link } from "react-router-dom";
 
 const orderTypeCard = [
   {
     title: "Order Online",
-    image: OrderOnlineImage,
+    images: {
+      small: OrderOnlineImageS,
+      medium: OrderOnlineImageM,
+      large: OrderOnlineImageL,
+    },
     description: "Stay home and order to your doorstep",
+    route: "/delivery",
   },
   {
     title: "Dine In",
-    image: DineInImage,
+    images: {
+      small: DineInImageS,
+      medium: DineInImageM,
+      large: DineInImageL,
+    },
     description: "View the cities favourite dining venues",
+    route: "/dine-out",
   },
 ];
 const HomePage = () => {
@@ -47,20 +63,24 @@ const HomePage = () => {
             </div>
           </div>
         </header>
-        <main className="mt-12  flex justify-center items-center gap-12 pb-20 mx-8 ">
+        <main className="mt-12  flex justify-center items-center gap-6 md:gap-8  lg:gap-12 pb-20 mx-8 ">
           {orderTypeCard.map((card) => (
-            <div className=" w-[13rem] md:w-[20rem] lg:w-[30rem] rounded-lg overflow-hidden shadow-lg  pb-3  md:pb-6 cursor-pointer transition-transform duration-200 hover:scale-110">
-              <img
-                src={card.image}
-                className="w-[100%] lg:w-[30rem] lg:h-48 "
-              />
-              <p className="text-sm ml-2 md:text-lg font-bold mt-2">
-                {card.title}
-              </p>
-              <p className="ml-2 mt-1 truncate text-xs md:text-sm lg:text-base lg:truncate-none mr-1 ">
-                {card.description}
-              </p>
-            </div>
+            <Link to={card.route}>
+              <div className=" w-[10rem] md:w-[20rem] lg:w-[30rem] rounded-lg overflow-hidden shadow-lg  pb-3  md:pb-6 cursor-pointer transition-transform duration-200 hover:scale-110">
+                <img
+                  src={card.images.large}
+                  sizes="(max-width: 768px) 160px,(max-width: 1024px) 320px,480px"
+                  srcSet={`${card.images.small} 400w,${card.images.medium} 800w,${card.images.large} 1200w`}
+                  className="w-[100%] lg:w-[30rem] lg:h-48 "
+                />
+                <p className="text-sm ml-2 md:text-lg font-bold mt-2">
+                  {card.title}
+                </p>
+                <p className="ml-2 mt-1 truncate text-xs md:text-sm lg:text-base lg:truncate-none mr-1 ">
+                  {card.description}
+                </p>
+              </div>
+            </Link>
           ))}
         </main>
       </div>

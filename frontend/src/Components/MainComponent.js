@@ -7,6 +7,9 @@ import AddCategory from "../Page/Admin/AddCategory";
 import HomePage from "../Page/HomePage/HomePage";
 import NavbarComponent from "./NavbarComponent";
 import FooterComponent from "./FooterComponent";
+import ZomestoMainPage from "../Page/ZomestoMainPage/ZomestoMainPage.";
+import DineInPage from "../Page/ZomestoMainPage/DineInPage";
+import OrderOnlinePage from "../Page/ZomestoMainPage/OrderOnlinePage";
 
 const MainComponent = () => {
   return (
@@ -16,6 +19,10 @@ const MainComponent = () => {
         <Route path="/admin" element={<AdminPage />}>
           <Route path="addrestaurant" element={<AddRestaurantPage />} />
           <Route path="addcategory" element={<AddCategory />} />
+        </Route>
+        <Route element={<ZomestoMainPage />}>
+          <Route path="delivery" element={<OrderOnlinePage />} />
+          <Route path="dine-out" element={<DineInPage />} />
         </Route>
       </Routes>
       <FooterComponent />

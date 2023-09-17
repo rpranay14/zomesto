@@ -9,7 +9,9 @@ const FooterComponent = () => {
   return (
     <>
       <footer className="bg-[#f8f8f8] px-5 md:px-10  lg:px-40 py-6">
-        <p className="font-bold italic text-4xl mb-7">zomesto</p>
+        <p className="font-bold italic text-2xl md:text-xl lg:text-4xl  mb-4 md:mb-5 lg:mb-7">
+          zomesto
+        </p>
         <div className="flex flex-wrap gap-4 justify-between text-[#78909c]">
           <div className="">
             <p className="font-semibold  mb-1 text-gray-700">About</p>

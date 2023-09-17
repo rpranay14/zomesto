@@ -54,7 +54,7 @@ const restaurantSchema = new Schema(
     cuisineid: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "cuisine",
+        ref: "Cuisine",
       },
     ],
     rating: {

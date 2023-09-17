@@ -1,7 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-
 const multer = require("multer");
 const path = require("path");
 const Restaurant = require("../models/restaurant");
@@ -21,6 +20,8 @@ restaurantRouter
   .route("/")
   .get((req, res, next) => {
     Restaurant.find({})
+      .populate("cuisineid")
+      .exec()
       .then(
         (restaurant) => {
           res.json({ success: true, restaurant: restaurant });
@@ -31,22 +32,25 @@ restaurantRouter
   })
   .post(upload.any(), async (req, res, next) => {
     const restaurant = req.body;
-    console.log(req.body.cuisine);
+    console.log(req.files);
+
     const cuisines = req.body.cuisine.map((cuisine) =>
       mongoose.Types.ObjectId(cuisine)
     );
-    console.log(cuisines);
-    const restroPhoto = req.files.filter(
-      (dishPhoto) => dishPhoto.fieldname === "photos"
-    )[0].path;
-    console.log(restroPhoto);
+    const restroPhoto = `/upload/${
+      req.files.filter((dishPhoto) => dishPhoto.fieldname === "photos")[0]
+        .filename
+    }`;
+
     for (let i = 0; i < restaurant.menu.length; i++) {
       for (let j = 0; j < restaurant.menu[i].dishes.length; j++) {
-        const photo = req.files.filter(
-          (dishPhoto) =>
-            dishPhoto.fieldname ===
-            `dishPhotos-${restaurant.menu[i].dishes[j].dishName}`
-        )[0].path;
+        const photo = `/upload/${
+          req.files.filter(
+            (dishPhoto) =>
+              dishPhoto.fieldname ===
+              `dishPhotos-${restaurant.menu[i].dishes[j].dishName}`
+          )[0].filename
+        }`;
         restaurant.menu[i].dishes[j].dishPhoto = photo;
       }
     }
