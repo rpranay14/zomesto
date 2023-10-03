@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { CiFilter } from "react-icons/ci";
 import Meal from "../../assets/meal.avif";
 import RestaurantCard from "../../Components/RestaurantCard";
@@ -7,6 +7,7 @@ import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { useDispatch } from "react-redux";
 import { setLoadingProgress } from "../../redux/ActionCreators";
 import { useNavigate } from "react-router-dom";
+import FilterModal from "./Modals/FilterModal";
 const baseUrl = "http://localhost:3001";
 const getRestaurants = async () => {
   try {
@@ -19,6 +20,7 @@ const getRestaurants = async () => {
 };
 
 const OrderOnlinePage = () => {
+  const [showFilterModal, setShowFilterModal] = useState(false);
   const dispatch = useDispatch();
   const { data, isLoading, isError } = useQuery(
     ["get-restaurants"],
@@ -29,37 +31,43 @@ const OrderOnlinePage = () => {
   } else {
     dispatch(setLoadingProgress(100));
     return (
-      <div className="px-4 sm:px-5 md:px-16 lg:px-28 mt-5 mb-5 ">
-        <div className="flex items-center gap-3 lg:gap-5">
-          <p className="text-sm lg:text-base flex gap-1 items-center cursor-pointer px-2 py-1 border border-gray-300 text-gray-400 hover:bg-gray-50 rounded-md">
-            <CiFilter /> Filters
-          </p>
-          <p className="text-sm lg:text-base cursor-pointer px-2 py-1 border border-gray-300 text-gray-400 hover:bg-gray-50 rounded-md">
-            Rating: 4.0+
-          </p>
-          <p className="text-sm lg:text-basecursor-pointer px-2 py-1 border border-gray-300 text-gray-400 hover:bg-gray-50 rounded-md">
-            Cuisines
-          </p>
-        </div>
-        <div className="mt-8">
-          <p className="text-xl md:text-2xl lg:text-3xl font-semibold ">
-            Best Food in Kota
-          </p>
-          <div className="flex flex-wrap gap-5">
-            {data?.map((restro) => (
-              <RestaurantCard
-                key={restro._id}
-                image={`${baseUrl}${restro.photos}`}
-                restroname={restro.name}
-                cuisine={restro.cuisineid
-                  .map((cuisine) => cuisine.name)
-                  .join(", ")}
-                rating={restro.rating}
-              />
-            ))}
+      <>
+        <div className="px-4 sm:px-5 md:px-16 lg:px-28 mt-5 mb-5 ">
+          <div className="flex items-center gap-3 lg:gap-5">
+            <p
+              onClick={() => setShowFilterModal(true)}
+              className="text-sm lg:text-base flex gap-1 items-center cursor-pointer px-2 py-1 border border-gray-300 text-gray-400 hover:bg-gray-50 rounded-md"
+            >
+              <CiFilter /> Filters
+            </p>
+            <p className="text-sm lg:text-base cursor-pointer px-2 py-1 border border-gray-300 text-gray-400 hover:bg-gray-50 rounded-md">
+              Rating: 4.0+
+            </p>
+            <p className="text-sm lg:text-basecursor-pointer px-2 py-1 border border-gray-300 text-gray-400 hover:bg-gray-50 rounded-md">
+              Cuisines
+            </p>
+          </div>
+          <div className="mt-8">
+            <p className="text-xl md:text-2xl lg:text-3xl font-semibold ">
+              Best Food in Kota
+            </p>
+            <div className="flex flex-wrap gap-5">
+              {data?.map((restro) => (
+                <RestaurantCard
+                  key={restro._id}
+                  image={`${baseUrl}${restro.photos}`}
+                  restroname={restro.name}
+                  cuisine={restro.cuisineid
+                    .map((cuisine) => cuisine.name)
+                    .join(", ")}
+                  rating={restro.rating}
+                />
+              ))}
+            </div>
           </div>
         </div>
-      </div>
+        {showFilterModal ? <FilterModal /> : <></>}
+      </>
     );
   }
 };
