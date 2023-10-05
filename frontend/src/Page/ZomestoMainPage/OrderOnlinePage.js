@@ -66,7 +66,11 @@ const OrderOnlinePage = () => {
             </div>
           </div>
         </div>
-        {showFilterModal ? <FilterModal /> : <></>}
+        {showFilterModal ? (
+          <FilterModal close={() => setShowFilterModal(false)} />
+        ) : (
+          <></>
+        )}
       </>
     );
   }
