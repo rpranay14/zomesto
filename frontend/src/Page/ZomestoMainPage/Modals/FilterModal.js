@@ -63,7 +63,12 @@ const FilterModal = ({ close }) => {
         </main>
         <div className="h-0 w-[100%] border-t-2 border-gray-100 "></div>
         <footer className="flex justify-end items-center gap-8 mr-8 mb-6 mt-4">
-          <button className="bg-gray-50 px-6 rounded-md py-2 ">Clearall</button>
+          <button
+            onClick={() => close()}
+            className="bg-gray-50 px-6 rounded-md py-2 "
+          >
+            Clear all
+          </button>
           <button className="bg-red-400 px-6 rounded-md py-2 text-white">
             Apply
           </button>
