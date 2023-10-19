@@ -8,7 +8,6 @@ const RestaurantCard = ({ image, restroname, rating, costforone, cuisine }) => {
     imgRef.current.classList.remove("opacity-0");
     imgContainerRef.current.classList.remove("animate-pulse");
     imgRef.current.classList.add("opacity-1");
-    console.log("hii");
   };
   return (
     <div className="w-[80%] sm:w-[45%] md:w-[45%] lg:w-[30%] p-3 mt-5 border shadow-xl lg:shadow-none lg:border-white rounded-xl  hover:border-gray-300 hover:shadow-xl cursor-pointer">

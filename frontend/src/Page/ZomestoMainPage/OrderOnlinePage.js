@@ -12,7 +12,7 @@ const baseUrl = "http://localhost:3001";
 const getRestaurants = async () => {
   try {
     const response = await axiosapi.get("/restaurant");
-    console.log(response.data.restaurant);
+
     return response.data.restaurant;
   } catch (error) {
     console.log(error);

@@ -2,7 +2,6 @@ import React from "react";
 
 const MenuComponent = ({ menuList, setmenuList }) => {
   const handledishCategoryChange = (e, index) => {
-    console.log(e.target.value);
     const newMenuList = [...menuList];
     newMenuList[index].dishCategory = e.target.value;
     setmenuList(newMenuList);
@@ -24,7 +23,7 @@ const MenuComponent = ({ menuList, setmenuList }) => {
       dishPhoto: "",
       dishDescription: "",
     });
-    console.log(newMenuList);
+
     setmenuList(newMenuList);
   };
   const addNewdishCategory = (e) => {

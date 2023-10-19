@@ -32,7 +32,6 @@ restaurantRouter
   })
   .post(upload.any(), async (req, res, next) => {
     const restaurant = req.body;
-    console.log(req.files);
 
     const cuisines = req.body.cuisine.map((cuisine) =>
       mongoose.Types.ObjectId(cuisine)
@@ -68,7 +67,6 @@ restaurantRouter
       photos: restroPhoto,
       menu: req.body.menu,
     };
-    console.log(newRestro);
 
     const restro = await Restaurant.create(newRestro);
     res.status(200).json({ success: true });

@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { addFilter } from "../../../../redux/ActionCreators";
 
 const SortByComponent = () => {
-  const value = useSelector((state) => state.filter.sortBy);
-  console.log(value, "value");
+  const value = useSelector((state) => state.filter.filter.sortBy);
+
   const dispatch = useDispatch();
   const [sortBy, setSortBy] = useState("");
   const handleChange = (e) => {

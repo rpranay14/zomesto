@@ -6,9 +6,21 @@ import RatingComponent from "./FilterModalComponent.js/RatingComponent";
 import CostPerPersonComponent from "./FilterModalComponent.js/CostPerPersonComponent";
 import SortByComponent from "./FilterModalComponent.js/SortByComponent";
 import { useSelector } from "react-redux";
+const findRatingValue = (rating) => {
+  if (rating === 0) {
+    return "Any";
+  } else if (rating === 1) {
+    return "3.5+";
+  } else if (rating === 2) {
+    return "4.0+";
+  } else if (rating === 3) {
+    return "4.5+";
+  }
+};
 
 const FilterModal = ({ close }) => {
-  const filterValue = useSelector((state) => state.filter);
+  const filterValue = useSelector((state) => state.filter.filter);
+
   const menus = [
     {
       title: "Sort By",
@@ -16,11 +28,14 @@ const FilterModal = ({ close }) => {
     },
     {
       title: "Cuisines",
-      subtitle: "1 selected",
+      subtitle:
+        filterValue.cuisine.length === 0
+          ? ""
+          : `${filterValue.cuisine.length} selected`,
     },
     {
       title: "Rating",
-      subtitle: "",
+      subtitle: findRatingValue(filterValue.rating),
     },
     {
       title: "Cost Per Person",
@@ -53,7 +68,9 @@ const FilterModal = ({ close }) => {
                 }`}
               >
                 <p className="text-xl font-semibold">{menu.title}</p>
-                <p className="text-red-500  font-semibold">{menu.subtitle}</p>
+                <p className="text-red-500  font-semibold text-sm">
+                  {menu.subtitle}
+                </p>
               </div>
             ))}
           </div>

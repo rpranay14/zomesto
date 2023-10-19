@@ -26,7 +26,7 @@ const CuisineModal = (props) => {
       setCuisineArray(newArray);
     } else {
       const newArray = [...cuisineArray, e.target.value];
-      console.log(newArray);
+
       setCuisineArray(newArray);
     }
   };

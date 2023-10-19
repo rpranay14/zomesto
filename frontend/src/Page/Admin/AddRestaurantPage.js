@@ -47,7 +47,7 @@ const AddRestaurantPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     // Perform form submission logic here
-    console.log("fr", formData);
+
     const restaurantData = new FormData();
     restaurantData.append("name", formData.name);
     restaurantData.append("restaurantType", formData.restaurantType);
@@ -93,15 +93,12 @@ const AddRestaurantPage = () => {
         restaurantData.append(`dishPhotos-${dish.dishName}`, dish.dishPhoto);
       });
     });
-    console.log(menuList);
 
-    console.log(restaurantData);
     const response = await axiosapi.post("restaurant", restaurantData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
     });
-    console.log(response.data);
   };
   const toggleModal = (e) => {
     e.preventDefault();

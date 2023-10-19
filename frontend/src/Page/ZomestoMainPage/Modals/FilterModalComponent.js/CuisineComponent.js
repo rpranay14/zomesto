@@ -2,12 +2,20 @@ import React from "react";
 import { AiOutlineSearch } from "react-icons/ai";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { axiosapi } from "../../../../api/axiosapi";
+import { useDispatch, useSelector } from "react-redux";
+import { addFilter } from "../../../../redux/ActionCreators";
 const getCuisines = async () => {
   const response = await axiosapi.get("/cuisine");
   return response.data;
 };
 const CuisineComponent = () => {
+  const dispatch = useDispatch();
+  const filterValue = useSelector((state) => state.filter.filter.cuisine);
   const { isLoading, isError, data } = useQuery(["get-cuisines"], getCuisines);
+  const handleChange = (e) => {
+    dispatch(addFilter({ cuisine: e.target.value }));
+  };
+
   return (
     <div className="mt-4 mx-6 w-[100%]">
       <header className="flex border w-[100%] py-2 px-2 items-center gap-4 rounded-md ">
@@ -24,7 +32,12 @@ const CuisineComponent = () => {
         <section className="px-3 mt-1 h-[21rem] overflow-y-scroll flex flex-wrap justify-between ">
           {data.cuisine.map((cuisine, index) => (
             <label className="flex  items-center space-x-3 text-lg cursor-pointer  w-1/2 py-2">
-              <input type="checkbox" value={cuisine._id} />
+              <input
+                type="checkbox"
+                checked={filterValue.includes(cuisine._id)}
+                value={cuisine._id}
+                onChange={(e) => handleChange(e)}
+              />
 
               <span>{cuisine.name}</span>
             </label>

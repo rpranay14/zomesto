@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import Slider from "@mui/material/Slider";
 import { makeStyles } from "@material-ui/core/styles";
+import { useDispatch, useSelector } from "react-redux";
+import { addFilter } from "../../../../redux/ActionCreators";
 
 function valuetext(value) {
   return `${value}°C`;
@@ -52,10 +54,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 const CostPerPersonComponent = () => {
+  const value = useSelector((state) => state.filter.filter.costperperson);
+  console.log(value, "value of value");
+  const dispatch = useDispatch();
   const classes = useStyles();
-  const [value, setValue] = useState([0, 1000]);
+
   const handleChange = (event, newValue) => {
-    setValue(newValue);
+    console.log(newValue);
+    dispatch(addFilter({ costperperson: newValue }));
   };
 
   return (
