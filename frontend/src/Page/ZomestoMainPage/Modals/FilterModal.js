@@ -5,27 +5,28 @@ import CuisineComponent from "./FilterModalComponent.js/CuisineComponent";
 import RatingComponent from "./FilterModalComponent.js/RatingComponent";
 import CostPerPersonComponent from "./FilterModalComponent.js/CostPerPersonComponent";
 import SortByComponent from "./FilterModalComponent.js/SortByComponent";
-
-const menus = [
-  {
-    title: "Sort By",
-    subtitle: "Popularity",
-  },
-  {
-    title: "Cuisines",
-    subtitle: "1 selected",
-  },
-  {
-    title: "Rating",
-    subtitle: "",
-  },
-  {
-    title: "Cost Per Person",
-    subtitle: "",
-  },
-];
+import { useSelector } from "react-redux";
 
 const FilterModal = ({ close }) => {
+  const filterValue = useSelector((state) => state.filter);
+  const menus = [
+    {
+      title: "Sort By",
+      subtitle: filterValue.sortBy,
+    },
+    {
+      title: "Cuisines",
+      subtitle: "1 selected",
+    },
+    {
+      title: "Rating",
+      subtitle: "",
+    },
+    {
+      title: "Cost Per Person",
+      subtitle: "",
+    },
+  ];
   const [openMenu, setOpenMenu] = useState(0);
   return createPortal(
     <div className="fixed top-0 bottom-0 right-0 left-0 bg-black bg-opacity-60">

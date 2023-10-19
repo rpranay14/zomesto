@@ -14,7 +14,7 @@ const RestaurantCard = ({ image, restroname, rating, costforone, cuisine }) => {
     <div className="w-[80%] sm:w-[45%] md:w-[45%] lg:w-[30%] p-3 mt-5 border shadow-xl lg:shadow-none lg:border-white rounded-xl  hover:border-gray-300 hover:shadow-xl cursor-pointer">
       <div
         ref={imgContainerRef}
-        className="w-[100%] h-[14rem] sm:h-[14rem] md:h-[14rem] lg:h-[12rem] rounded-xl bg-gradient-to-r from-gray-200 to-gray-100 animate-pulse duration-1000 linear infinite alternate"
+        className="w-[100%] h-[14rem] sm:h-[14rem] md:h-[14rem] lg:h-[12rem] rounded-xl bg-gradient-to-r from-gray-300 to-gray-200 animate-pulse duration-1000 linear infinite alternate"
       >
         <img
           ref={imgRef}

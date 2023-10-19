@@ -6,7 +6,6 @@ const getCuisines = async () => {
   const response = await axiosapi.get("/cuisine");
   return response.data;
 };
-
 const CuisineComponent = () => {
   const { isLoading, isError, data } = useQuery(["get-cuisines"], getCuisines);
   return (
