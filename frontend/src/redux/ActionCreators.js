@@ -9,3 +9,6 @@ export const addFilter = (filter) => ({
   type: ActionTypes.ADD_FILTER,
   payload: filter,
 });
+export const removeFIlter = () => ({
+  type: ActionTypes.REMOVE_FILTER,
+});

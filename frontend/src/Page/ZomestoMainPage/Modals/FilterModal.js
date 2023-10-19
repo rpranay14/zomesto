@@ -5,7 +5,8 @@ import CuisineComponent from "./FilterModalComponent.js/CuisineComponent";
 import RatingComponent from "./FilterModalComponent.js/RatingComponent";
 import CostPerPersonComponent from "./FilterModalComponent.js/CostPerPersonComponent";
 import SortByComponent from "./FilterModalComponent.js/SortByComponent";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { addFilter, removeFIlter } from "../../../redux/ActionCreators";
 const findRatingValue = (rating) => {
   if (rating === 0) {
     return "Any";
@@ -19,23 +20,33 @@ const findRatingValue = (rating) => {
 };
 
 const FilterModal = ({ close }) => {
-  const filterValue = useSelector((state) => state.filter.filter);
+  const dispatch = useDispatch();
+  const [filterObject, setFilterObject] = useState(
+    useSelector((state) => state.filter.filter)
+  );
+  const handleApplyFilters = () => {
+    dispatch(addFilter(filterObject));
+  };
+  const handleClearFilter = () => {
+    dispatch(removeFIlter());
+    close();
+  };
 
   const menus = [
     {
       title: "Sort By",
-      subtitle: filterValue.sortBy,
+      subtitle: filterObject.sortBy,
     },
     {
       title: "Cuisines",
       subtitle:
-        filterValue.cuisine.length === 0
+        filterObject.cuisine.length === 0
           ? ""
-          : `${filterValue.cuisine.length} selected`,
+          : `${filterObject.cuisine.length} selected`,
     },
     {
       title: "Rating",
-      subtitle: findRatingValue(filterValue.rating),
+      subtitle: findRatingValue(filterObject.rating),
     },
     {
       title: "Cost Per Person",
@@ -74,20 +85,51 @@ const FilterModal = ({ close }) => {
               </div>
             ))}
           </div>
-          {openMenu === 0 ? <SortByComponent /> : <></>}
-          {openMenu === 1 ? <CuisineComponent /> : <></>}
-          {openMenu === 2 ? <RatingComponent /> : <></>}
-          {openMenu === 3 ? <CostPerPersonComponent /> : <></>}
+          {openMenu === 0 ? (
+            <SortByComponent
+              filterObject={filterObject}
+              setFilterObject={(value) => setFilterObject(value)}
+            />
+          ) : (
+            <></>
+          )}
+          {openMenu === 1 ? (
+            <CuisineComponent
+              filterObject={filterObject}
+              setFilterObject={(value) => setFilterObject(value)}
+            />
+          ) : (
+            <></>
+          )}
+          {openMenu === 2 ? (
+            <RatingComponent
+              filterObject={filterObject}
+              setFilterObject={(value) => setFilterObject(value)}
+            />
+          ) : (
+            <></>
+          )}
+          {openMenu === 3 ? (
+            <CostPerPersonComponent
+              filterObject={filterObject}
+              setFilterObject={(value) => setFilterObject(value)}
+            />
+          ) : (
+            <></>
+          )}
         </main>
         <div className="h-0 w-[100%] border-t-2 border-gray-100 "></div>
         <footer className="flex justify-end items-center gap-8 mr-8 mb-6 mt-4">
           <button
-            onClick={() => close()}
+            onClick={() => handleClearFilter()}
             className="bg-gray-50 px-6 rounded-md py-2 "
           >
             Clear all
           </button>
-          <button className="bg-red-400 px-6 rounded-md py-2 text-white">
+          <button
+            onClick={() => handleApplyFilters()}
+            className="bg-red-400 px-6 rounded-md py-2 text-white"
+          >
             Apply
           </button>
         </footer>

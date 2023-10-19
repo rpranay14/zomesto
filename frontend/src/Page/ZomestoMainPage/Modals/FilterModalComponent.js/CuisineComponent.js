@@ -8,12 +8,18 @@ const getCuisines = async () => {
   const response = await axiosapi.get("/cuisine");
   return response.data;
 };
-const CuisineComponent = () => {
-  const dispatch = useDispatch();
-  const filterValue = useSelector((state) => state.filter.filter.cuisine);
+const CuisineComponent = ({ filterObject, setFilterObject }) => {
   const { isLoading, isError, data } = useQuery(["get-cuisines"], getCuisines);
   const handleChange = (e) => {
-    dispatch(addFilter({ cuisine: e.target.value }));
+    let cuisine;
+    if (filterObject.cuisine.includes(e.target.value)) {
+      cuisine = filterObject.cuisine.filter(
+        (cuisine) => cuisine !== e.target.value
+      );
+    } else {
+      cuisine = [...filterObject.cuisine, e.target.value];
+    }
+    setFilterObject({ ...filterObject, cuisine: cuisine });
   };
 
   return (
@@ -34,7 +40,7 @@ const CuisineComponent = () => {
             <label className="flex  items-center space-x-3 text-lg cursor-pointer  w-1/2 py-2">
               <input
                 type="checkbox"
-                checked={filterValue.includes(cuisine._id)}
+                checked={filterObject.cuisine.includes(cuisine._id)}
                 value={cuisine._id}
                 onChange={(e) => handleChange(e)}
               />

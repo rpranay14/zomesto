@@ -3,12 +3,11 @@ import { BiSolidCircle } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
 import { addFilter } from "../../../../redux/ActionCreators";
 
-const RatingComponent = () => {
-  const dispatch = useDispatch();
-  const rating = useSelector((state) => state.filter.filter.rating);
+const RatingComponent = ({ filterObject, setFilterObject }) => {
+  const rating = filterObject.rating;
 
   const handleSelectRating = (value) => {
-    dispatch(addFilter({ rating: value }));
+    setFilterObject({ ...filterObject, rating: value });
   };
   return (
     <div className="ml-3 mt-3">
