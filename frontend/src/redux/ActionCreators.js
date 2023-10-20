@@ -12,3 +12,7 @@ export const addFilter = (filter) => ({
 export const removeFIlter = () => ({
   type: ActionTypes.REMOVE_FILTER,
 });
+export const updateFilterCount = (filter) => ({
+  type: ActionTypes.UPDATE_FILTER_COUNT,
+  payload: filter,
+});

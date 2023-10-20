@@ -6,7 +6,11 @@ import RatingComponent from "./FilterModalComponent.js/RatingComponent";
 import CostPerPersonComponent from "./FilterModalComponent.js/CostPerPersonComponent";
 import SortByComponent from "./FilterModalComponent.js/SortByComponent";
 import { useDispatch, useSelector } from "react-redux";
-import { addFilter, removeFIlter } from "../../../redux/ActionCreators";
+import {
+  addFilter,
+  removeFIlter,
+  updateFilterCount,
+} from "../../../redux/ActionCreators";
 const findRatingValue = (rating) => {
   if (rating === 0) {
     return "Any";
@@ -26,9 +30,12 @@ const FilterModal = ({ close }) => {
   );
   const handleApplyFilters = () => {
     dispatch(addFilter(filterObject));
+    dispatch(updateFilterCount(filterObject));
+    close();
   };
   const handleClearFilter = () => {
     dispatch(removeFIlter());
+
     close();
   };
 
