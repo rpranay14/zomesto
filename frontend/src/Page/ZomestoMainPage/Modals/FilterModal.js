@@ -1,4 +1,10 @@
 import React, { useState } from "react";
+import {
+  QueryClient,
+  useInfiniteQuery,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
 import { AiOutlineClose } from "react-icons/ai";
 import { createPortal } from "react-dom";
 import CuisineComponent from "./FilterModalComponent.js/CuisineComponent";
@@ -24,6 +30,7 @@ const findRatingValue = (rating) => {
 };
 
 const FilterModal = ({ close }) => {
+  const queryClient = useQueryClient();
   const dispatch = useDispatch();
   const [filterObject, setFilterObject] = useState(
     useSelector((state) => state.filter.filter)
@@ -32,11 +39,13 @@ const FilterModal = ({ close }) => {
     dispatch(addFilter(filterObject));
     dispatch(updateFilterCount(filterObject));
     close();
+    queryClient.invalidateQueries(["get-restaurants"]);
   };
   const handleClearFilter = () => {
     dispatch(removeFIlter());
 
     close();
+    queryClient.invalidateQueries(["get-restaurants"]);
   };
 
   const menus = [

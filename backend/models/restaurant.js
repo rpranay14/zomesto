@@ -60,6 +60,12 @@ const restaurantSchema = new Schema(
     rating: {
       type: Number,
     },
+    costperperson: {
+      type: Number,
+    },
+    deliverytime: {
+      type: Number,
+    },
 
     photos: { type: String },
 

@@ -31,7 +31,7 @@ const RestaurantCard = ({ image, restroname, rating, costforone, cuisine }) => {
       </div>
       <div className="flex text-sm justify-between items-center mt-1 text-gray-500">
         <p className="w-40  truncate ">{cuisine}</p>
-        <p>₹250 for one</p>
+        <p>₹{costforone} for one</p>
       </div>
     </div>
   );

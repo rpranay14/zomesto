@@ -18,9 +18,55 @@ const upload = multer({ storage: storage });
 
 restaurantRouter
   .route("/")
-  .get((req, res, next) => {
-    Restaurant.find({})
+  .post((req, res, next) => {
+    console.log(req.body.filter);
+
+    const query = {};
+    if (req.body.filter.cuisine.length !== 0) {
+      query.cuisineid = { $in: req.body.filter.cuisine };
+    }
+    if (req.body.filter.rating === 1) {
+      query.rating = { $gte: 3.5 };
+    }
+    if (req.body.filter.rating === 2) {
+      query.rating = { $gte: 4 };
+    }
+    if (req.body.filter.rating === 3) {
+      query.rating = { $gte: 4.5 };
+    }
+    if (req.body.filter.costperperson[1] === 1000) {
+      query.costperperson = { $gte: req.body.filter.costperperson[0] };
+    }
+    if (req.body.filter.costperperson[1] !== 1000) {
+      query.costperperson = {
+        $gte: req.body.filter.costperperson[0],
+        $lte: req.body.filter.costperperson[1],
+      };
+    }
+    const sort = {};
+    switch (req.body.filter.sortBy) {
+      case "Popularity":
+        sort.createdAt = -1;
+        break;
+      case "Rating:High to Low":
+        sort.rating = 1;
+        break;
+      case "Delivery Time":
+        sort.deliverytime = 1;
+        break;
+      case "Cost:High to Low":
+        sort.costperperson = -1;
+        break;
+      case "Cost:Low to High":
+        sort.costperperson = 1;
+        break;
+      // Add more cases for other fields to sort by
+      // Default to sorting by createdAt
+    }
+
+    Restaurant.find(query)
       .populate("cuisineid")
+      .sort(sort)
       .exec()
       .then(
         (restaurant) => {

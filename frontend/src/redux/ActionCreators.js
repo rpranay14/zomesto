@@ -16,3 +16,7 @@ export const updateFilterCount = (filter) => ({
   type: ActionTypes.UPDATE_FILTER_COUNT,
   payload: filter,
 });
+export const removeSingleFilter = (filter) => ({
+  type: ActionTypes.REMOVE_SINGLE_FILTER,
+  payload: filter,
+});

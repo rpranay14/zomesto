@@ -7,7 +7,6 @@ const filter = {
 };
 
 export const FILTER = (state = { filter: filter, count: 0 }, action) => {
-  let newFilter;
   switch (action.type) {
     case ActionTypes.ADD_FILTER:
       return { ...state, filter: action.payload };
@@ -33,6 +32,13 @@ export const FILTER = (state = { filter: filter, count: 0 }, action) => {
         }
       }
       return { ...state, count: count };
+    case ActionTypes.REMOVE_SINGLE_FILTER:
+      for (const key in filter) {
+        if (key === Object.keys(action.payload)[0]) {
+          const newFilter = { ...state.filter, [key]: filter[key] };
+          return { ...state, filter: newFilter, count: state.count - 1 };
+        }
+      }
     default:
       return state;
   }
