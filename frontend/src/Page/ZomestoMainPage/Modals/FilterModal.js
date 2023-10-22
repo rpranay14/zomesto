@@ -28,7 +28,6 @@ const findRatingValue = (rating) => {
     return "4.5+";
   }
 };
-
 const FilterModal = ({ close }) => {
   const queryClient = useQueryClient();
   const dispatch = useDispatch();
