@@ -166,26 +166,11 @@ const OrderOnlinePage = () => {
                       <AiOutlineClose className="w-4 h-4 ml-1 " color="white" />
                     </p>
                   );
-                } else {
-                  return (
-                    <p
-                      onClick={() =>
-                        onFilterChange({
-                          [x]: filterState[x],
-                        })
-                      }
-                      className="text-sm lg:text-base cursor-pointer px-2 py-1 border border-gray-300 text-gray-400 hover:bg-gray-50 rounded-md"
-                    >
-                      Rating: 4.0+
-                    </p>
-                  );
-                }
+                } 
               }
             })}
 
-            <p className="text-sm lg:text-base cursor-pointer px-2 py-1 border border-gray-300 text-gray-400 hover:bg-gray-50 rounded-md">
-              Cuisines
-            </p>
+           
           </div>
           <div className="mt-8">
             <p className="text-xl md:text-2xl lg:text-3xl font-semibold ">

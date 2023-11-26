@@ -1,5 +1,5 @@
 import React from "react";
-import imageURL from "../../assets/zomato_header";
+import imageURL from "../../assets/zomato_header.webp";
 import { AiOutlineSearch } from "react-icons/ai";
 import OrderOnlineImageS from "../../assets/order-online640x423.jpg";
 import OrderOnlineImageM from "../../assets/order-online1280x847.jpg";
