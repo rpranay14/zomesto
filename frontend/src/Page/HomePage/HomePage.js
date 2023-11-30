@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState,useEffect } from "react";
 import imageURL from "../../assets/zomato_header.webp";
 import { AiOutlineSearch } from "react-icons/ai";
 import OrderOnlineImageS from "../../assets/order-online640x423.jpg";
@@ -9,6 +9,8 @@ import DineInImageS from "../../assets/dine-in640x423.jpg";
 import DineInImageM from "../../assets/dine-in1280x847.jpg";
 import DineInImageL from "../../assets/dine-in1920x1271.jpg";
 import { Link } from "react-router-dom";
+import { axiosapi } from "../../api/axiosapi";
+import RestaurantSearchSkeleton from "./RestaurantSearchSkeleton";
 
 const orderTypeCard = [
   {
@@ -33,6 +35,36 @@ const orderTypeCard = [
   },
 ];
 const HomePage = () => {
+  const [search, setSearch] = useState('');
+  const [restaurant,setRestaurant]=useState([])
+  const [showRestaurants,setshowRestaurants]=useState(false);
+  const [restaurantLoading,setrestaurantLoading]=useState(true);
+  useEffect(() => {
+    console.log("sss")
+    let getData;
+    setrestaurantLoading(true)
+    if(search!==''){
+    getData=setTimeout(async()=>{
+     const response=await axiosapi.post('/restaurant/searchrestaurant',{search:search});
+     console.log(response.data.data)
+     setRestaurant(response.data.data)
+     setrestaurantLoading(false)
+    
+    },3000)
+    }
+    return () => {
+      clearInterval(getData)
+    }
+  }, [search])
+  const handleShowRestaurants=()=>{
+    setshowRestaurants(true)
+    setTimeout(()=>{
+      setshowRestaurants(false)
+    },[2000])
+  }
+  
+
+
   return (
     <>
       <div>
@@ -50,17 +82,28 @@ const HomePage = () => {
           <p className="text-center mt-8 lg:mt-5 text-4xl lg:text-8xl font-semibold italic">
             zomesto
           </p>
-          <p className="text-center mt-6 text-md lg:text-3xl md:text-xl ">
-            Explore the finest cuisine and beverages in Kota
-          </p>
-          <div className="flex flex-col  justify-center items-center mt-7">
-            <div className="flex text-black bg-white w-[100%] md:w-[70%] lg:w-[60%] xl:w-[55%]  items-center gap-4 px-4 py-2 rounded-md">
+
+          
+          <div className="flex flex-col  justify-center items-center mt-7 relative">
+            <div className="flex text-black bg-white w-[75%] md:w-[45%] lg:w-[35%] xl:w-[30%]  items-center gap-4 px-4 py-2 rounded-md">
               <AiOutlineSearch className="w-6 h-6" />
               <input
+              value={search}
+              onClick={()=>handleShowRestaurants()}
+              onChange={(e)=>setSearch(e.target.value)}
                 className="w-[100%] outline-none text-lg"
                 placeholder="Search for restaurant, cuisine or dish"
               ></input>
             </div>
+         {showRestaurants || search!=="" ?<div className="top-12 px-4 py-2 text-black bg-white w-[75%] md:w-[45%] lg:w-[35%] xl:w-[30%] rounded-md absolute">
+         {restaurantLoading ?  <RestaurantSearchSkeleton/>: 
+         <div>
+          {restaurant.map((restro)=>(
+            <p className="text-lg">{restro.name}</p>
+          ))}
+         </div>
+         }
+            </div>:<></>}
           </div>
         </header>
         <main className="mt-12  flex justify-center items-center gap-6 md:gap-8  lg:gap-12 pb-20 mx-8 ">

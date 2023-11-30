@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
 import { AiOutlineSearch } from "react-icons/ai";
 import { useSelector } from "react-redux";
 import LoadingBar from "react-top-loading-bar";
@@ -6,6 +6,19 @@ import { BiSolidUser } from "react-icons/bi";
 
 const CommonNavbarComponent = () => {
   const progress = useSelector((state) => state.loadingBar.loadingProgress);
+  const [search,setSearch]=useState('');
+  useEffect(() => {
+    console.log("hiiii")
+    const getData=setTimeout(()=>{
+      console.log(search,"asgasg")
+    },3000)
+  
+    return () => {
+      clearTimeout(getData)
+    }
+  })
+  
+
   return (
     <>
       <LoadingBar color="#f44336" progress={progress} />
@@ -17,6 +30,8 @@ const CommonNavbarComponent = () => {
         <div className="hidden lg:flex shadow-md text-black bg-white w-[100%] md:w-[70%] lg:w-[50%] xl:w-[50%]  items-center gap-4 px-4 py-2 rounded-md">
           <AiOutlineSearch className="w-6 h-6" />
           <input
+          value={search}
+          onChange={(e)=>console.log(e.target.value)}
             className="w-[100%] outline-none text-lg"
             placeholder="Search for restaurant, cuisine or dish"
           ></input>

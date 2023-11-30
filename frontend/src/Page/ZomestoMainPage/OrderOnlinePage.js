@@ -20,7 +20,7 @@ import {
 } from "../../redux/ActionCreators";
 import { useNavigate } from "react-router-dom";
 import FilterModal from "./Modals/FilterModal";
-const baseUrl = "http://localhost:3001";
+const baseUrl = "https://zomato-backend-na3e.onrender.com";
 const getRestaurants = async (filterState) => {
   console.log("querykey", filterState.queryKey[1]);
   const filter = filterState.queryKey[1];
