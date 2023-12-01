@@ -132,7 +132,7 @@ restaurantRouter.route('/searchrestaurant').post(async(req,res,next)=>{
         name:{$regex:search,$options:"i"}
      
       },{   'menu.dishes.dishName':{$regex:search,$options:"i"}}]
-    },{name:1,delivery:1,dinein:1,address:1})
+    },{name:1,delivery:1,dinein:1,address:1,photos:1})
     return res.status(200).json({success:true,data:restaurants})
   }
   catch(error){

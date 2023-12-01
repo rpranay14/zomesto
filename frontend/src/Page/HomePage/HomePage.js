@@ -11,6 +11,7 @@ import DineInImageL from "../../assets/dine-in1920x1271.jpg";
 import { Link } from "react-router-dom";
 import { axiosapi } from "../../api/axiosapi";
 import RestaurantSearchSkeleton from "./RestaurantSearchSkeleton";
+import RestaurantListComponent from "./RestaurantListComponent";
 
 const orderTypeCard = [
   {
@@ -95,11 +96,12 @@ const HomePage = () => {
                 placeholder="Search for restaurant, cuisine or dish"
               ></input>
             </div>
-         {showRestaurants || search!=="" ?<div className="top-12 px-4 py-2 text-black bg-white w-[75%] md:w-[45%] lg:w-[35%] xl:w-[30%] rounded-md absolute">
+         {showRestaurants || search!=="" ?<div className="z-50 top-12 px-4 py-2 text-black h-[12rem] overflow-y-scroll bg-white w-[75%] md:w-[45%] lg:w-[35%] xl:w-[30%] rounded-md absolute">
          {restaurantLoading ?  <RestaurantSearchSkeleton/>: 
          <div>
           {restaurant.map((restro)=>(
-            <p className="text-lg">{restro.name}</p>
+            <RestaurantListComponent key={restro._id} restro={restro}/>
+           
           ))}
          </div>
          }
