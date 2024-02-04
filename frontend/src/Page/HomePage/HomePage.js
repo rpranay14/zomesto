@@ -12,6 +12,7 @@ import { Link } from "react-router-dom";
 import { axiosapi } from "../../api/axiosapi";
 import RestaurantSearchSkeleton from "./RestaurantSearchSkeleton";
 import RestaurantListComponent from "./RestaurantListComponent";
+import AuthenticationModal from "./Modals/AuthenticationModal";
 
 const orderTypeCard = [
   {
@@ -36,6 +37,7 @@ const orderTypeCard = [
   },
 ];
 const HomePage = () => {
+  const [showAuthenticationModal,setShowAuthenticationModal]=useState('')
   const [search, setSearch] = useState('');
   const [restaurant,setRestaurant]=useState([])
   const [showRestaurants,setshowRestaurants]=useState(false);
@@ -68,6 +70,7 @@ const HomePage = () => {
 
   return (
     <>
+    {showAuthenticationModal!=='' ? <AuthenticationModal modal={showAuthenticationModal} changeModalState={(modalState)=>setShowAuthenticationModal(modalState)}/>:null}
       <div>
         <header
           className="py-2 lg:py-5 pb-12 lg:pb-16 px-5 lg:px-24 bg-cover bg-center h-[70%]  text-white "
@@ -76,8 +79,8 @@ const HomePage = () => {
           <nav className="flex justify-between">
             <p>Get the app</p>
             <div className="flex justify-between gap-5 font-semibold">
-              <p>Login</p>
-              <p>Signup</p>
+              <p className="cursor-pointer" onClick={()=>setShowAuthenticationModal('Login')}>Login</p>
+              <p className="cursor-pointer" onClick={()=>setShowAuthenticationModal('Signup')}>Signup</p>
             </div>
           </nav>
           <p className="text-center mt-8 lg:mt-5 text-4xl lg:text-8xl font-semibold italic">
